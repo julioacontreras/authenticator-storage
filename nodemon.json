@@ -1,0 +1,7 @@
+{
+  "verbose": true,
+  "watch": ["src"],
+  "ext": "ts,json",
+  "ignore": ["*.spec.js"],
+  "exec": "ts-node ./src/index.ts"
+}

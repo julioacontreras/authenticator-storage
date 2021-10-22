@@ -1,0 +1,40 @@
+version: "3.4"
+services:
+  authstorage:
+    container_name: auth-service
+    build: .
+    image: authstorageimage
+    volumes:
+      - .:/var/www/html/app
+      - ../grpc:/var/www/html/grpc
+    ports:
+      - 5000:5000
+    expose:
+      - 5000
+    networks:
+      - mynetwork
+    depends_on:
+      - grpcox
+      - mongo
+  mongo:
+    container_name: docker-mongo
+    image: mongo
+    restart: always
+    networks:
+      - mynetwork
+    ports:
+      - 27017:27017
+    expose:
+      - 27017
+  grpcox:
+    container_name: grpcox
+    image: gusaul/grpcox
+    networks:
+      - mynetwork
+    ports:
+      - 6969:6969
+    expose:
+      - 6969
+networks: 
+  mynetwork:
+    name: mynetwork
