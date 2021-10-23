@@ -9,7 +9,8 @@
     "clean": "npx gts clean",
     "build": "npx tsc",
     "dev": "nodemon",
-    "docker": "docker-compose up"
+    "docker": "docker-compose up",
+    "test": "npx jest"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +22,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^16.11.3",
     "gts": "^3.1.0",
+    "jest": "^27.3.1",
     "nodemon": "^2.0.13",
     "rimraf": "^3.0.2",
     "ts-loader": "^9.2.6",
