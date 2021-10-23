@@ -1,24 +1,33 @@
 import express from 'express';
 import {printStartService} from '../display';
 import {Config} from './config';
-import {Action} from '../../adapters/interfaces/protocol/action';
+import {Action} from '../../adapters/interfaces/transport/action';
+import {SecurityAccess} from '../../adapters/interfaces/securityAccess';
 
 export const initializeHTTP = (
   config: Config,
-  actions: Map<string, Action>
+  actions: Map<string, Action>,
+  securityAccess: SecurityAccess
 ) => {
-  connect(config, actions);
+  connect(config, actions, securityAccess);
 };
 
-const connect = (config: Config, actions: Map<string, Action>) => {
+const connect = (
+  config: Config,
+  actions: Map<string, Action>,
+  securityAccess: SecurityAccess
+) => {
   express;
-  const server = startServer(actions);
+  const server = startServer(actions, securityAccess);
   server.listen(config.port, () => {
     printStartService('Server HTTP on port', String(config.port));
   });
 };
 
-function startServer(actions: Map<string, Action>) {
+function startServer(
+  actions: Map<string, Action>,
+  securityAccess: SecurityAccess
+) {
   const server = express();
   const cors = require('cors');
   const bodyParser = require('body-parser');
@@ -30,6 +39,11 @@ function startServer(actions: Map<string, Action>) {
     if (!action) {
       throw 'Not found action';
     }
+
+    if (!securityAccess.checkAccess(req.body.token)) {
+      throw 'Token not allowed';
+    }
+
     const dataResponse = action.run(req.body.data);
     res.json({data: JSON.stringify(dataResponse)});
   });
