@@ -1,0 +1,28 @@
+syntax="proto3";
+package appPackage;
+
+service AppService {
+  rpc sendToQueue (AppRequestQueue) returns (AppResponseQueue);
+  rpc sendToService (AppRequestService) returns (AppResponseService);
+}
+
+// Information data to will sended
+message AppRequestQueue {
+  string queue = 1;
+  string data = 2;
+}
+
+// Return if will sended or not
+message AppResponseQueue {
+  bool isSended = 1;
+  string status = 2;
+}
+
+message AppRequestService {
+  string action = 1;
+  string data = 2;
+}
+
+message AppResponseService {
+  string data = 1;
+}

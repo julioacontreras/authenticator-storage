@@ -1,8 +1,8 @@
 import {Application} from './application';
 
 import {register as registerAuth} from '../adapters/registers/authjwt';
-import {register as registerServer} from '../adapters/registers/serverHTTP';
-// import {register as registerServer} from '../adapters/registers/serverGRPC';
+// import {register as registerServer} from '../adapters/registers/serverHTTP';
+import {register as registerServer} from '../adapters/registers/serverGRPC';
 import {register as registerDatabase} from '../adapters/registers/dbMongo';
 import {register as registerRepository} from '../adapters/registers/repositoryMongo';
 import {register as registerCreateUser} from './usecases/registerCreateUser';

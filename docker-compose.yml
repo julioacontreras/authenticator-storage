@@ -6,7 +6,7 @@ services:
     image: authstorageimage
     volumes:
       - .:/var/www/html/app
-      - ../grpc:/var/www/html/grpc
+      - ./grpc:/var/www/html/grpc
     ports:
       - 5000:5000
     expose:

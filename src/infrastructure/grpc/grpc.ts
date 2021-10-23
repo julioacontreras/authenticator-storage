@@ -1,9 +1,7 @@
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
-// eslint-disable-next-line node/no-unpublished-import
-import {ProtoGrpcType} from '../../../../grpc/src/data';
-// eslint-disable-next-line node/no-unpublished-import
-import {AppServiceHandlers} from '../../../../grpc/src/appPackage/AppService';
+import {ProtoGrpcType} from '../../../grpc/src/data';
+import {AppServiceHandlers} from '../../../grpc/src/appPackage/AppService';
 import {printStartService} from '../display';
 import {Config} from './config';
 import {Action} from '../../adapters/interfaces/protocol/action';
