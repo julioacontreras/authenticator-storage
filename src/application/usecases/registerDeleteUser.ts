@@ -1,5 +1,5 @@
 import {Application} from '../application';
-import {Action} from '../../adapters/interfaces/protocol/action';
+import {Action} from '../../adapters/interfaces/transport/action';
 import {DeleteUser} from './user/deleteUser';
 import {DeleteUserParams} from '../../domain/user/services/deleteUser';
 

@@ -4,7 +4,6 @@ This is a simple microservice using DDD architecture.
 
 ### Features
 
-* Auth JWT
 * Protocol GRPC
 * MongoDB
 

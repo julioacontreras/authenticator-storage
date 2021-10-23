@@ -1,22 +1,28 @@
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
+import {SecurityAccess} from '../../adapters/interfaces/securityAccess';
 // eslint-disable-next-line node/no-unpublished-import
 import {ProtoGrpcType} from '../../../../grpc/src/data';
 // eslint-disable-next-line node/no-unpublished-import
 import {AppServiceHandlers} from '../../../../grpc/src/appPackage/AppService';
 import {printStartService} from '../display';
 import {Config} from './config';
-import {Action} from '../../adapters/interfaces/protocol/action';
+import {Action} from '../../adapters/interfaces/transport/action';
 
 export const initializeGRPC = (
   config: Config,
-  actions: Map<string, Action>
+  actions: Map<string, Action>,
+  securityAccess: SecurityAccess
 ) => {
-  connect(config, actions);
+  connect(config, actions, securityAccess);
 };
 
-const connect = (config: Config, actions: Map<string, Action>) => {
-  const server = startServer(config, actions);
+const connect = (
+  config: Config,
+  actions: Map<string, Action>,
+  securityAccess: SecurityAccess
+) => {
+  const server = startServer(config, actions, securityAccess);
   server.bindAsync(
     `${config.host}:${config.port}`,
     grpc.ServerCredentials.createInsecure(),
@@ -31,7 +37,11 @@ const connect = (config: Config, actions: Map<string, Action>) => {
   );
 };
 
-function startServer(config: Config, actions: Map<string, Action>) {
+function startServer(
+  config: Config,
+  actions: Map<string, Action>,
+  securityAccess: SecurityAccess
+) {
   const packageDef = protoLoader.loadSync(config.protoFile);
   const grpcObj = grpc.loadPackageDefinition(
     packageDef
@@ -44,6 +54,11 @@ function startServer(config: Config, actions: Map<string, Action>) {
       if (!action) {
         throw 'Not found action';
       }
+
+      if (!securityAccess.checkAccess(req.request.token)) {
+        throw 'Token not allowed';
+      }
+
       const dataResponse = action.run(req.request.data);
       res(null, {data: JSON.stringify(dataResponse)});
     },
