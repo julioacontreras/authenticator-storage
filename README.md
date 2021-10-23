@@ -1,10 +1,15 @@
 # Auth Microservice using DDD
 
-This is a simple microservice using DDD architecture.
+This is a example microservice using DDD architecture.
+
+### Depedencies
+
+* Nodejs
+* Docker
 
 ### Features
 
-* Auth JWT
+* Typescript
 * Protocol GRPC
 * MongoDB
 
@@ -24,6 +29,11 @@ npm run docker
 # Set file proto in path `./grpc/proto/data.proto`
 http://localhost:6969/
 
+
+"gRPC Server Target" = auth-service:5000
+
+"Use local proto" = true
+
 # Can test using this action
 {
   "action": "createUser",
@@ -31,3 +41,5 @@ http://localhost:6969/
 }
  
 ```
+
+![Setting gRPC](doc/setting-grpc.gif)
