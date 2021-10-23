@@ -6,7 +6,7 @@ import {
   CreateUserParams,
 } from '../../../domain/user/services/createUser';
 
-import {UserModel} from '../../../domain/user/model/index';
+import {UserModel} from '../../../domain/user/entities/user';
 
 export class CreateUser implements CreateUserServiceType {
   repository: RepositoryAdapter | null = null;

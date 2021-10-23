@@ -22,4 +22,3 @@ Important: Use branch playground if you want work in local.
 # Run GRPC Server
 npm run docker
 ```
-

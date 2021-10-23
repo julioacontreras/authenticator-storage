@@ -1,4 +1,4 @@
-import {UserType} from '../model/type';
+import {UserType} from '../entities/user';
 
 export type DeleteUserParams = Pick<UserType, 'id'>;
 

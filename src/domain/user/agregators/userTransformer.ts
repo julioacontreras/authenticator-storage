@@ -1,4 +1,4 @@
-import {UserInterface} from '../model/interface';
+import {UserInterface} from '../entities/user';
 import {Transformer} from '../../shared/transformer';
 
 export interface ApiUserInterface {
