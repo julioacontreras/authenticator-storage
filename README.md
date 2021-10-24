@@ -1,8 +1,7 @@
 # Auth Microservice using DDD
 
-This is a simple microservice using DDD architecture.
-
-### Features
+This is a microservice using DDD architecture to storage User information.
+### Tecnologies
 
 * Protocol GRPC
 * MongoDB

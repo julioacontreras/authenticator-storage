@@ -12,6 +12,6 @@ export const register = async (app: Application): Promise<Application> => {
       useUnifiedTopology: true,
     },
   });
-  app.connectDatabase(db);
+  app.setDatabase(db)
   return app;
 };
