@@ -1,5 +1,5 @@
 import { Validator } from "src/adapters/interfaces/validator";
-import {CreateUserParams} from '../../../../domain/user/services/createUser';
+import {CreateUserParams} from '../../../../domain/user/services/createUserInterface';
 
 export class ValidateParamsCreateUser {
   private validator

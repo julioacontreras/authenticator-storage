@@ -1,7 +1,7 @@
 import {Application} from '../application';
 import {Action} from '../../adapters/interfaces/transport/action';
 import {CreateUser} from './user/createUser';
-import {CreateUserParams} from '../../domain/user/services/createUser';
+import {CreateUserParams} from '../../domain/user/services/createUserInterface';
 
 export const register = (app: Application): Application => {
   const createUser = new CreateUser(app.getUserRepository(), app.getValidator());

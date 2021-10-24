@@ -3,7 +3,7 @@ import {RepositoryAdapter} from '../../../adapters/interfaces/db/repository';
 import {
   DeleteUserType,
   DeleteUserParams,
-} from '../../../domain/user/services/deleteUser';
+} from '../../../domain/user/services/deleteUserInterface';
 
 export class DeleteUser implements DeleteUserType {
   repository: RepositoryAdapter | null = null;
