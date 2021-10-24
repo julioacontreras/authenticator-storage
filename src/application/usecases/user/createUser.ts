@@ -3,7 +3,7 @@ import {
   CreateUserServiceType,
   CreateUserParams,
 } from '../../../domain/user/services/createUser';
-import {ValidateParamsCreateUser} from '../../validations/validateParamsCreateUser';
+import {ValidateParamsCreateUser} from './validations/validateParamsCreateUser';
 import {UserModel} from '../../../domain/user/entities/user';
 import { Validator } from 'src/adapters/interfaces/validator';
 
