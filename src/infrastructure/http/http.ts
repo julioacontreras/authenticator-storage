@@ -34,18 +34,30 @@ function startServer(
   server.use(cors()); // Enable to crosssites
   server.use(bodyParser.urlencoded({extended: false}));
   server.use(bodyParser.json());
-  server.post('/service', (req, res) => {
-    const action = actions.get(req.body.action);
+  server.post('/service', async (req, res) => {
+    let action: Action | null = null;
+    try {
+      action = actions.get(req.body.action);
+    }
+    catch (err) {
+      res.status(500).json({message: err});
+      return;
+    }
     if (!action) {
-      throw 'Not found action';
+      res.status(500).json({message: 'Not found action'});
+      return;
     }
-
     if (!securityAccess.checkAccess(req.body.token)) {
-      throw 'Token not allowed';
+      res.status(500).json({message: 'Token not allowed'});
+      return;
     }
-
-    const dataResponse = action.run(req.body.data);
-    res.json({data: JSON.stringify(dataResponse)});
+    let dataResponse;
+    try {
+      dataResponse = await action.run(req.body.data);
+      res.json({data: JSON.stringify(dataResponse)});  
+    } catch (err) {
+      res.status(500).json({message: err});
+    }
   });
   return server;
 }

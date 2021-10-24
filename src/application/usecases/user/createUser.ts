@@ -14,8 +14,23 @@ export class CreateUser implements CreateUserServiceType {
     this.validateParamsCreateUser = new ValidateParamsCreateUser(validator)
     this.repository = repository;
   }
+
   async create(data: CreateUserParams): Promise<unknown> {
-    this.validateParamsCreateUser.validate(data)
+    this.validateParamsCreateUser.validate(data);
+    if (await this.existEmail(data.email)) {
+      throw 'This email is already created. Please select another email.'
+    }
+    if (await this.existUsername(data.username)) {
+      throw 'This username is already created. Please select another username.'
+    }
     return await this.repository.createOne(data);
+  }
+
+  async existEmail(email: string): Promise<boolean>{
+    return this.repository.findOne({email}) ? true : false
+  }
+
+  async existUsername(username: string): Promise<boolean>{
+    return this.repository.findOne({username}) ? true : false
   }
 }
