@@ -1,7 +1,7 @@
 import {Application} from '../application';
 import {Action} from '../../adapters/interfaces/transport/action';
 import {DeleteUser} from './user/deleteUser';
-import {DeleteUserParams} from '../../domain/user/services/deleteUser';
+import {DeleteUserParams} from '../../domain/user/services/deleteUserInterface';
 
 export const register = (app: Application): Application => {
   const createUser = new DeleteUser(app.getUserRepository());

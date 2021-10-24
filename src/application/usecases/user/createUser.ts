@@ -2,7 +2,7 @@ import {RepositoryAdapter} from '../../../adapters/interfaces/db/repository';
 import {
   CreateUserServiceType,
   CreateUserParams,
-} from '../../../domain/user/services/createUser';
+} from '../../../domain/user/services/createUserInterface';
 import {ValidateParamsCreateUser} from './validations/validateParamsCreateUser';
 import { Validator } from 'src/adapters/interfaces/validator';
 
