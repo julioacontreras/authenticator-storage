@@ -1,15 +1,15 @@
 import {ProtocolServerAdapter} from '../adapters/interfaces/transport/server';
-import {AuthAdapter} from '../adapters/interfaces/auth';
 import {Action} from '../adapters/interfaces/transport/action';
 import {SecurityAccess} from '../adapters/interfaces/securityAccess';
 import {RepositoryAdapter} from '../adapters/interfaces/db/repository';
+import { Validator } from 'src/adapters/interfaces/validator';
 
 export class Application {
   private repository: RepositoryAdapter | null = null;
-  private auth: AuthAdapter | null = null;
   private useCaseList: Map<string, Action> = new Map();
   private db: unknown | null = null;
   private securityAccess: SecurityAccess | null = null;
+  private validator: Validator | null = null;
 
   connectDatabase(db: unknown) {
     this.db = db;
@@ -20,6 +20,12 @@ export class Application {
   addUseCase(key: string, action: Action) {
     this.useCaseList.set(key, action);
   }
+  setValidator(validator: Validator) {
+    this.validator = validator;
+  }
+  getValidator(): Validator {
+    return this.validator;
+  }
   setSecurityAccess(securityAccess: SecurityAccess) {
     this.securityAccess = securityAccess;
   }
@@ -29,11 +35,5 @@ export class Application {
   }
   getRepository(): RepositoryAdapter {
     return this.repository;
-  }
-  setAuth(auth: AuthAdapter) {
-    this.auth = auth;
-  }
-  getAuth(): AuthAdapter {
-    return this.auth;
   }
 }
