@@ -4,7 +4,8 @@ export interface RepositoryAdapter {
   createRepository: (table: string, schema: unknown) => {};
   createOne: (data: unknown) => Promise<unknown>;
   updateOne: (id: string, data: unknown) => Promise<unknown>;
-  deleteOne: (id: string) => Promise<unknown>;
-  findOne: (id: string) => Promise<unknown>;
+  deleteOneById: (id: string) => Promise<unknown>;
+  findOneById: (id: string) => Promise<unknown>;
+  findOne: (data: unknown) => Promise<unknown>;
   find: (selector: unknown) => Promise<unknown>;
 }

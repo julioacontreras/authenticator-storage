@@ -37,17 +37,23 @@ export class MongoRepository implements RepositoryAdapter {
     }
     return await MongoModel.updateOne({_id: id}, data);
   }
-  async deleteOne(id: string): Promise<unknown> {
+  async deleteOneById(id: string): Promise<unknown> {
     if (!MongoModel) {
       throw 'Not exist repository';
     }
     return await MongoModel.deleteOne({_id: id});
   }
-  async findOne(id: string): Promise<unknown> {
+  async findOneById(id: string): Promise<unknown> {
     if (!MongoModel) {
       throw 'Not exist repository';
     }
     return await MongoModel.findOne({_id: id});
+  }
+  async findOne(data: unknown): Promise<unknown> {
+    if (!MongoModel) {
+      throw 'Not exist repository';
+    }
+    return await MongoModel.findOne(data);
   }
   async find(selector: unknown): Promise<unknown> {
     if (!MongoModel) {
