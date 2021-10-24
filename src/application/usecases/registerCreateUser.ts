@@ -10,7 +10,6 @@ export const register = (app: Application): Application => {
       if (typeof data === 'string') {
         data = JSON.parse(data as string);
       }
-
       const params = data as CreateUserParams;
       return await createUser.create(params);
     },
