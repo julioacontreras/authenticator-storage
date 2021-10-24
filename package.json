@@ -25,6 +25,7 @@
     "@types/express": "^4.17.13",
     "@types/faker": "^5.5.9",
     "@types/jest": "^27.0.2",
+    "@types/joi": "^17.2.3",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^16.11.3",
     "babel-jest": "^27.3.1",
@@ -54,6 +55,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "graphql": "^15.6.1",
+    "joi": "^17.4.2",
     "mongoose": "^6.0.12",
     "path": "^0.12.7"
   }

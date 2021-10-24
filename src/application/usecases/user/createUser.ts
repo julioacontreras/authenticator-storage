@@ -1,25 +1,23 @@
 import {RepositoryAdapter} from '../../../adapters/interfaces/db/repository';
-import {AuthAdapter} from '../../../adapters/interfaces/auth';
-
 import {
   CreateUserServiceType,
   CreateUserParams,
 } from '../../../domain/user/services/createUser';
-
+import {ValidateParamsCreateUser} from '../../validations/validateParamsCreateUser';
 import {UserModel} from '../../../domain/user/entities/user';
+import { Validator } from 'src/adapters/interfaces/validator';
 
 export class CreateUser implements CreateUserServiceType {
-  repository: RepositoryAdapter | null = null;
-  auth: AuthAdapter | null = null;
+  private repository: RepositoryAdapter | null = null;
+  private validateParamsCreateUser: ValidateParamsCreateUser | null = null;
 
-  constructor(repository: RepositoryAdapter, auth: AuthAdapter) {
+  constructor(repository: RepositoryAdapter, validator: Validator) {
+    this.validateParamsCreateUser = new ValidateParamsCreateUser(validator)
     this.repository = repository;
     this.repository.createRepository('User', UserModel);
-    this.auth = auth;
   }
   async create(data: CreateUserParams): Promise<unknown> {
-    data.salt = this.auth.generateSalt();
-    data.password = this.auth.hashPassword(data.password, data.salt);
+    this.validateParamsCreateUser.validate(data)
     return await this.repository.createOne(data);
   }
 }
