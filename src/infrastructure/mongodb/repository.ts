@@ -7,6 +7,10 @@ let MongoModel: any | null = null;
 export class MongoRepository implements RepositoryAdapter {
   transformer: unknown;
   private db: Mongoose | null = null;
+  constructor(repository: string, schema: any, db: Mongoose){
+    this.setDB(db);
+    this.createRepository(repository, schema);
+  }
   setDB(db: Mongoose) {
     this.db = db;
   }

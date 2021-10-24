@@ -5,14 +5,17 @@ import {RepositoryAdapter} from '../adapters/interfaces/db/repository';
 import { Validator } from 'src/adapters/interfaces/validator';
 
 export class Application {
-  private repository: RepositoryAdapter | null = null;
   private useCaseList: Map<string, Action> = new Map();
-  private db: unknown | null = null;
   private securityAccess: SecurityAccess | null = null;
   private validator: Validator | null = null;
-
-  connectDatabase(db: unknown) {
-    this.db = db;
+  private userRepository: RepositoryAdapter | null = null;
+  private database: any | null = null;
+  
+  setDatabase(database: any) {
+    this.database = database
+  }
+  getDatabase(){
+    return this.database
   }
   startServer(server: ProtocolServerAdapter, config: unknown) {
     server.create(this.useCaseList, config, this.securityAccess);
@@ -29,11 +32,10 @@ export class Application {
   setSecurityAccess(securityAccess: SecurityAccess) {
     this.securityAccess = securityAccess;
   }
-  setRepository(repository: RepositoryAdapter) {
-    this.repository = repository;
-    this.repository.setDB(this.db);
+  setUserRepository(userRepository: any) {
+    this.userRepository = userRepository
   }
-  getRepository(): RepositoryAdapter {
-    return this.repository;
+  getUserRepository(): any {
+    return this.userRepository
   }
 }
