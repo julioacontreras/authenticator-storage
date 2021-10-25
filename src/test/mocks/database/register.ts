@@ -1,11 +1,11 @@
-import {MongoConnector} from '../../../infrastructure/mongodb/connector';
+import {MockConnector} from '../../mocks/database/connector';
+import {MockRepository} from '../../mocks/database/repository';
 import {Application} from '../../../application/application';
-import {MongoRepository} from '../../../infrastructure/mongodb/repository';
 
 require('dotenv').config();
 
 export const register = async (app: Application): Promise<Application> => {
-  const db = await MongoConnector.connect({
+  const db = await MockConnector.connect({
     url: process.env.DB_URL,
     options: {
       autoIndex: false,
@@ -13,7 +13,7 @@ export const register = async (app: Application): Promise<Application> => {
       useUnifiedTopology: true,
     },
   });
-  app.Repository = MongoRepository
+  app.Repository = MockRepository
   app.setDatabase(db)
   return app;
 };

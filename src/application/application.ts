@@ -10,15 +10,21 @@ export class Application {
   private validator: Validator | null = null;
   private userRepository: RepositoryAdapter | null = null;
   private database: any | null = null;
-  
+  private server: ProtocolServerAdapter | null = null;
+  public Repository: any;
+
   setDatabase(database: any) {
     this.database = database
   }
   getDatabase(){
     return this.database
   }
-  startServer(server: ProtocolServerAdapter, config: unknown) {
-    server.create(this.useCaseList, config, this.securityAccess);
+  startServer(serverInstance: ProtocolServerAdapter, config: unknown) {
+    this.server = serverInstance
+    this.server.create(this.useCaseList, config, this.securityAccess);
+  }
+  getServer(): ProtocolServerAdapter{
+    return this.server
   }
   addUseCase(key: string, action: Action) {
     this.useCaseList.set(key, action);

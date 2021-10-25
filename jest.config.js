@@ -191,4 +191,15 @@ module.exports = {
 
   // Whether to use watchman for file crawling
   // watchman: true,
+
+  "roots": [
+    "./src"
+  ],
+  "testMatch": [
+    "**/__tests__/**/*.+(ts|tsx|js)",
+    "**/?(*.)+(spec|test).+(ts|tsx|js)"
+  ],
+  "transform": {
+    "^.+\\.(ts|tsx)$": "ts-jest"
+  }
 };
