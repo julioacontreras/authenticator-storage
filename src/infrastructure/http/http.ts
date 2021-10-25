@@ -17,7 +17,6 @@ const connect = (
   actions: Map<string, Action>,
   securityAccess: SecurityAccess
 ) => {
-  express;
   const server = startServer(actions, securityAccess);
   server.listen(config.port, () => {
     printStartService('Server HTTP on port', String(config.port));

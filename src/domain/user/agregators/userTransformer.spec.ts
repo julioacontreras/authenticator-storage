@@ -1,4 +1,5 @@
 import {userTransformer} from './userTransformer'
+import {ApiUserInterface} from '../agregators/userTransformer'
 const faker = require('faker');
 
 describe('Validate points', () => {
@@ -22,7 +23,7 @@ describe('Validate points', () => {
       },
     ]
     const result = userTransformer.transformToAPI(data)
-    const item = result[0]
+    const item = result[0] as ApiUserInterface;
     expect(item._id).toBeDefined();
     expect(item.username).toBeDefined();
     expect(item.profile).toBeDefined();
