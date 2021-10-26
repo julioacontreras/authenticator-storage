@@ -11,6 +11,7 @@ import {register as registerDeleteUser} from '../../application/usecases/registe
 
 describe('Create User', () => {
   let app: Application
+
   beforeEach(async () => {
     app = new Application();
     app = registerSecurityAccess(app);

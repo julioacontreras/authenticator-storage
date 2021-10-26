@@ -1,16 +1,22 @@
-version: "3.4"
+version: "3"
 services:
   authstorage:
     container_name: auth-service
     build: .
     image: authstorageimage
+    env_file:
+      - ./.env.docker 
     volumes:
       - .:/var/www/html/app
       - ../grpc:/var/www/html/grpc
     ports:
       - 5000:5000
+      - 5001:5001
+      - 5002:5002
     expose:
       - 5000
+      - 5001
+      - 5002
     networks:
       - mynetwork
     depends_on:
@@ -35,6 +41,17 @@ services:
       - 6969:6969
     expose:
       - 6969
+  prometheus:
+    container_name: docker-prometheus
+    image: prom/prometheus
+    volumes:
+      - C:/julio/p/akuma/projects/authenticator-storage/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - mynetwork
+    depends_on:
+      - authstorage
 networks: 
   mynetwork:
     name: mynetwork
