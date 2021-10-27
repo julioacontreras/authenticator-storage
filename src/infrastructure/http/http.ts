@@ -37,32 +37,41 @@ function startServer(
   server.use(cors()); // Enable to crosssites
   server.use(bodyParser.urlencoded({extended: false}));
   server.use(bodyParser.json());
+
   const metric = app.getMetric()
-  // metric.createGauge('http', 'server http')
-  server.post('/service', async (req, res) => {
-    // const end = metric.startGauge('http');
+  metric.createCounterRequestTotalOperators();
+  metric.createHistogramRequestDuration();
+
+  const path = '/service'
+  server.post(path, async (req, res) => {
+    metric.sumOneRequest();
+    const start = metric.startTime();
     let action: Action | null = null;
     try {
       action = actions.get(req.body.action);
     }
     catch (err) {
+      metric.calculeHistogramRequestDuration(start, path)
       res.status(500).json({message: err});
       return;
     }
     if (!action) {
+      metric.calculeHistogramRequestDuration(start, path)
       res.status(500).json({message: 'Not found action'});
       return;
     }
     if (!securityAccess.checkAccess(req.body.token)) {
+      metric.calculeHistogramRequestDuration(start, path)
       res.status(500).json({message: 'Token not allowed'});
       return;
     }
     let dataResponse;
     try {
       dataResponse = await action.run(req.body.data);
-      // metric.endGauge(end)
+      metric.calculeHistogramRequestDuration(start, path)
       res.json({data: JSON.stringify(dataResponse)});  
     } catch (err) {
+      metric.calculeHistogramRequestDuration(start, path)
       res.status(500).json({message: err});
     }
   });

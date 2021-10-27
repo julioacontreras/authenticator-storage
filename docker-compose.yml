@@ -45,13 +45,24 @@ services:
     container_name: docker-prometheus
     image: prom/prometheus
     volumes:
-      - C:/julio/p/akuma/projects/authenticator-storage/prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
     networks:
       - mynetwork
     depends_on:
       - authstorage
+  graphana:
+    container_name: docker-graphana
+    image: grafana/grafana:7.1.5
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env.graphana.docker 
+    volumes:
+      - ./datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml    
+    networks:
+      - mynetwork
 networks: 
   mynetwork:
     name: mynetwork
