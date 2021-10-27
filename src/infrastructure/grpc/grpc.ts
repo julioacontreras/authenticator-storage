@@ -8,6 +8,7 @@ import {AppServiceHandlers} from '../../../../grpc/src/appPackage/AppService';
 import {printStartService} from '../display';
 import {Config} from './config';
 import {Action} from '../../adapters/interfaces/transport/action';
+import {MicroServiceError} from 'src/adapters/core/microServiceError';
 
 export const initializeGRPC = (
   config: Config,
@@ -52,15 +53,28 @@ function startServer(
     sendToService: (req, res) => {
       const action = actions.get(req.request.action);
       if (!action) {
-        throw 'Not found action';
+        res(null, {data: JSON.stringify({
+          error: 'grpc',
+          message: 'Not found action'
+        })});
+        return
       }
 
       if (!securityAccess.checkAccess(req.request.token)) {
-        throw 'Token not allowed';
+        res(null, {data: JSON.stringify({
+          error: 'grpc',
+          message: 'Token not allowed'
+        })});
+        return
       }
 
-      const dataResponse = action.run(req.request.data);
-      res(null, {data: JSON.stringify(dataResponse)});
+      try {
+        const dataResponse = action.run(req.request.data);
+        res(null, {data: JSON.stringify(dataResponse)});  
+      } catch (error) {
+        error = error as MicroServiceError 
+        res(null, {data: JSON.stringify(error.getData())});  
+      }
     },
   } as AppServiceHandlers);
   return server;

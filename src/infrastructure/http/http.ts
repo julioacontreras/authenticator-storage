@@ -3,7 +3,7 @@ import {printStartService} from '../display';
 import {Config} from './config';
 import {Action} from '../../adapters/interfaces/transport/action';
 import {SecurityAccess} from '../../adapters/interfaces/securityAccess';
-import { Application } from 'src/application/application';
+import {Application} from 'src/application/application';
 
 export const initializeHTTP = (
   config: Config,

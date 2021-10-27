@@ -19,7 +19,7 @@ const connect = (
 ) => {
   const server = startServer(metric);
   server.listen(config.port, () => {
-    printStartService('Server HTTP metrics on port', String(config.port));
+    printStartService('Server metrics on port', String(config.port));
   });
 };
 

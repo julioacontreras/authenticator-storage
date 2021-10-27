@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const config = {
-  port: process.env.METRICS_PORT,
+  port: process.env.SERVER_METRICS_PORT,
 };
 
 export const register = async (app: Application): Promise<Application> => {
