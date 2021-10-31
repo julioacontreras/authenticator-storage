@@ -1,25 +1,37 @@
 import {RepositoryAdapter} from '../../../adapters/interfaces/db/repository';
-import {AuthAdapter} from '../../../adapters/interfaces/auth';
-
 import {
   CreateUserServiceType,
   CreateUserParams,
-} from '../../../domain/user/services/createUser';
-
-import {UserModel} from '../../../domain/user/model/index';
+} from '../../../domain/user/services/createUserInterface';
+import {ValidateParamsCreateUser} from './validations/validateParamsCreateUser';
+import {Validator} from '../../../adapters/interfaces/validator';
+import {MicroServiceError} from '../../../adapters/core/microServiceError';
 
 export class CreateUser implements CreateUserServiceType {
-  repository: RepositoryAdapter | null = null;
-  auth: AuthAdapter | null = null;
+  private repository: RepositoryAdapter | null = null;
+  private validateParamsCreateUser: ValidateParamsCreateUser | null = null;
 
-  constructor(repository: RepositoryAdapter, auth: AuthAdapter) {
+  constructor(repository: RepositoryAdapter, validator: Validator) {
+    this.validateParamsCreateUser = new ValidateParamsCreateUser(validator)
     this.repository = repository;
-    this.repository.createRepository('User', UserModel);
-    this.auth = auth;
   }
+
   async create(data: CreateUserParams): Promise<unknown> {
-    data.salt = this.auth.generateSalt();
-    data.password = this.auth.hashPassword(data.password, data.salt);
+    this.validateParamsCreateUser.validate(data);
+    if (await this.existEmail(data.email)) {
+      throw new MicroServiceError('This email is already created. Please select another email.', 'email-error') 
+    }
+    if (await this.existUsername(data.username)) {
+      throw new MicroServiceError('This username is already created. Please select another username.', 'email-error')
+    }
     return await this.repository.createOne(data);
+  }
+
+  async existEmail(email: string): Promise<boolean>{
+    return this.repository.findOne({email}) ? true : false
+  }
+
+  async existUsername(username: string): Promise<boolean>{
+    return this.repository.findOne({username}) ? true : false
   }
 }

@@ -1,34 +1,54 @@
-import {ProtocolServerAdapter} from '../adapters/interfaces/protocol/server';
-import {AuthAdapter} from '../adapters/interfaces/auth';
-import {Action} from '../adapters/interfaces/protocol/action';
+import {ProtocolServerAdapter} from '../adapters/interfaces/transport/server';
+import {Action} from '../adapters/interfaces/transport/action';
+import {SecurityAccess} from '../adapters/interfaces/securityAccess';
 import {RepositoryAdapter} from '../adapters/interfaces/db/repository';
+import {Validator} from 'src/adapters/interfaces/validator';
+import {Metric} from 'src/adapters/interfaces/metrics/metric';
 
 export class Application {
-  private repository: RepositoryAdapter | null = null;
-  private auth: AuthAdapter | null = null;
   private useCaseList: Map<string, Action> = new Map();
-  private db: unknown | null = null;
-
-  connectDatabase(db: unknown) {
-    this.db = db;
+  private securityAccess: SecurityAccess | null = null;
+  private validator: Validator | null = null;
+  private userRepository: RepositoryAdapter | null = null;
+  private database: any | null = null;
+  private server: ProtocolServerAdapter | null = null;
+  private metric: Metric | null = null;
+  public Repository: any;
+  setMetric(metric: Metric) {
+    this.metric = metric
   }
-  startServer(server: ProtocolServerAdapter, config: unknown) {
-    server.create(this.useCaseList, config);
+  getMetric(): Metric {
+    return this.metric
+  }
+  setDatabase(database: any) {
+    this.database = database
+  }
+  getDatabase(){
+    return this.database
+  }
+  startServer(serverInstance: ProtocolServerAdapter, config: unknown) {
+    this.server = serverInstance
+    this.server.create(this.useCaseList, config, this.securityAccess, this);
+  }
+  getServer(): ProtocolServerAdapter{
+    return this.server
   }
   addUseCase(key: string, action: Action) {
     this.useCaseList.set(key, action);
   }
-  setRepository(repository: RepositoryAdapter) {
-    this.repository = repository;
-    this.repository.setDB(this.db);
+  setValidator(validator: Validator) {
+    this.validator = validator;
   }
-  getRepository(): RepositoryAdapter {
-    return this.repository;
+  getValidator(): Validator {
+    return this.validator;
   }
-  setAuth(auth: AuthAdapter) {
-    this.auth = auth;
+  setSecurityAccess(securityAccess: SecurityAccess) {
+    this.securityAccess = securityAccess;
   }
-  getAuth(): AuthAdapter {
-    return this.auth;
+  setUserRepository(userRepository: any) {
+    this.userRepository = userRepository
+  }
+  getUserRepository(): any {
+    return this.userRepository
   }
 }

@@ -1,5 +1,6 @@
 import {MongoConnector} from '../../../infrastructure/mongodb/connector';
 import {Application} from '../../../application/application';
+import {MongoRepository} from '../../../infrastructure/mongodb/repository';
 
 require('dotenv').config();
 
@@ -12,6 +13,7 @@ export const register = async (app: Application): Promise<Application> => {
       useUnifiedTopology: true,
     },
   });
-  app.connectDatabase(db);
+  app.Repository = MongoRepository
+  app.setDatabase(db)
   return app;
 };

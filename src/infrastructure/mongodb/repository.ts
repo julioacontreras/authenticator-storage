@@ -1,4 +1,5 @@
 import {Mongoose} from 'mongoose';
+import {MicroServiceError} from '../../adapters/core/microServiceError';
 import {RepositoryAdapter} from '../../adapters/interfaces/db/repository';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -7,6 +8,10 @@ let MongoModel: any | null = null;
 export class MongoRepository implements RepositoryAdapter {
   transformer: unknown;
   private db: Mongoose | null = null;
+  constructor(repository: string, schema: any, db: Mongoose){
+    this.setDB(db);
+    this.createRepository(repository, schema);
+  }
   setDB(db: Mongoose) {
     this.db = db;
   }
@@ -14,7 +19,7 @@ export class MongoRepository implements RepositoryAdapter {
   async createRepository(repository: string, schema: any) {
     MongoModel = this.db.model(repository, new this.db.Schema(schema));
     if (!MongoModel) {
-      throw 'Not exist repository';
+      throw new MicroServiceError('Not exist repository', 'mongodb');
     }
     return MongoModel;
   }
@@ -29,25 +34,31 @@ export class MongoRepository implements RepositoryAdapter {
   }
   async updateOne(id: string, data: unknown): Promise<unknown> {
     if (!MongoModel) {
-      throw 'Not exist repository';
+      throw new MicroServiceError('Not exist repository', 'mongodb');
     }
     return await MongoModel.updateOne({_id: id}, data);
   }
-  async deleteOne(id: string): Promise<unknown> {
+  async deleteOneById(id: string): Promise<unknown> {
     if (!MongoModel) {
-      throw 'Not exist repository';
+      throw new MicroServiceError('Not exist repository', 'mongodb');
     }
     return await MongoModel.deleteOne({_id: id});
   }
-  async findOne(id: string): Promise<unknown> {
+  async findOneById(id: string): Promise<unknown> {
     if (!MongoModel) {
-      throw 'Not exist repository';
+      throw new MicroServiceError('Not exist repository', 'mongodb');
     }
     return await MongoModel.findOne({_id: id});
   }
+  async findOne(data: unknown): Promise<unknown> {
+    if (!MongoModel) {
+      throw new MicroServiceError('Not exist repository', 'mongodb');
+    }
+    return await MongoModel.findOne(data);
+  }
   async find(selector: unknown): Promise<unknown> {
     if (!MongoModel) {
-      throw 'Not exist repository';
+      throw new MicroServiceError('Not exist repository', 'mongodb');
     }
     return await MongoModel.find(selector);
   }

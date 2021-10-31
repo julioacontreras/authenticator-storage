@@ -2,7 +2,7 @@ import {HTTPServer} from '../../../infrastructure/http/server';
 import {Application} from '../../../application/application';
 
 const config = {
-  port: process.env.HTTP_PORT,
+  port: process.env.SERVER_HTTP_PORT,
 };
 
 export const register = (app: Application): Application => {

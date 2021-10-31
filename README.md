@@ -1,10 +1,8 @@
 # Auth Microservice using DDD
 
-This is a simple microservice using DDD architecture.
+This is a microservice using DDD architecture to storage User information.
+### Tecnologies
 
-### Features
-
-* Auth JWT
 * Protocol GRPC
 * MongoDB
 
@@ -22,4 +20,3 @@ Important: Use branch playground if you want work in local.
 # Run GRPC Server
 npm run docker
 ```
-

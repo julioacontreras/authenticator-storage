@@ -3,7 +3,7 @@ import {RepositoryAdapter} from '../../../adapters/interfaces/db/repository';
 import {
   DeleteUserType,
   DeleteUserParams,
-} from '../../../domain/user/services/deleteUser';
+} from '../../../domain/user/services/deleteUserInterface';
 
 export class DeleteUser implements DeleteUserType {
   repository: RepositoryAdapter | null = null;
@@ -11,6 +11,6 @@ export class DeleteUser implements DeleteUserType {
     this.repository = repository;
   }
   async delete(data: DeleteUserParams): Promise<unknown> {
-    return await this.repository.deleteOne(data.id);
+    return await this.repository.deleteOneById(data.id);
   }
 }
