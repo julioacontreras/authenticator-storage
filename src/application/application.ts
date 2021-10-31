@@ -2,7 +2,8 @@ import {ProtocolServerAdapter} from '../adapters/interfaces/transport/server';
 import {Action} from '../adapters/interfaces/transport/action';
 import {SecurityAccess} from '../adapters/interfaces/securityAccess';
 import {RepositoryAdapter} from '../adapters/interfaces/db/repository';
-import { Validator } from 'src/adapters/interfaces/validator';
+import {Validator} from 'src/adapters/interfaces/validator';
+import {Metric} from 'src/adapters/interfaces/metrics/metric';
 
 export class Application {
   private useCaseList: Map<string, Action> = new Map();
@@ -11,8 +12,14 @@ export class Application {
   private userRepository: RepositoryAdapter | null = null;
   private database: any | null = null;
   private server: ProtocolServerAdapter | null = null;
+  private metric: Metric | null = null;
   public Repository: any;
-
+  setMetric(metric: Metric) {
+    this.metric = metric
+  }
+  getMetric(): Metric {
+    return this.metric
+  }
   setDatabase(database: any) {
     this.database = database
   }
@@ -21,7 +28,7 @@ export class Application {
   }
   startServer(serverInstance: ProtocolServerAdapter, config: unknown) {
     this.server = serverInstance
-    this.server.create(this.useCaseList, config, this.securityAccess);
+    this.server.create(this.useCaseList, config, this.securityAccess, this);
   }
   getServer(): ProtocolServerAdapter{
     return this.server

@@ -12,6 +12,7 @@ let connection: any = null;
 const MongoConnector = {
   connect: async (configInstance: unknown) => {
     const config = configInstance as ConfigMongo;
+    printStartService('Database connecting...', config.url);
     connection = await mongoose.connect(config.url);
     printStartService('Database connected', config.url);
     return mongoose;

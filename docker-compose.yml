@@ -1,16 +1,22 @@
-version: "3.4"
+version: "3"
 services:
   authstorage:
     container_name: auth-service
     build: .
     image: authstorageimage
+    env_file:
+      - ./.env.docker 
     volumes:
       - .:/var/www/html/app
       - ../grpc:/var/www/html/grpc
     ports:
       - 5000:5000
+      - 5001:5001
+      - 5002:5002
     expose:
       - 5000
+      - 5001
+      - 5002
     networks:
       - mynetwork
     depends_on:
@@ -35,6 +41,28 @@ services:
       - 6969:6969
     expose:
       - 6969
+  prometheus:
+    container_name: docker-prometheus
+    image: prom/prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+    networks:
+      - mynetwork
+    depends_on:
+      - authstorage
+  graphana:
+    container_name: docker-graphana
+    image: grafana/grafana:7.1.5
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env.graphana.docker 
+    volumes:
+      - ./datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml    
+    networks:
+      - mynetwork
 networks: 
   mynetwork:
     name: mynetwork
