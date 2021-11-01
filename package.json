@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "agent": "npx ts-node ./src/console/agent.ts --create-user --repeat=10000",
     "start": "npm run clean && npm run build && npm start:app",
     "start:app": "node ./dist",
     "clean": "npx gts clean",
@@ -50,6 +51,7 @@
     "@types/graphql": "^14.5.0",
     "amqplib": "^0.8.0",
     "apollo-server": "^3.3.0",
+    "arg": "^5.0.1",
     "body-parser": "^1.19.0",
     "chalk": "^4.1.2",
     "cors": "^2.8.5",

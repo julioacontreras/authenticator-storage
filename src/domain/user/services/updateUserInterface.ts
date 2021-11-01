@@ -1,5 +1,6 @@
 import {UserType} from '../entities/user';
 
-export interface UpdateUser {
-  update: (data: UserType) => Promise<void>;
+export type UpdateUserParams = Omit<UserType, 'id'>;
+export interface UpdateUserType {
+  update: (id: string, data: UpdateUserParams) => Promise<unknown>;
 }

@@ -15,6 +15,6 @@ export interface Metric {
   histogramObserver?: (slug: string, value: number) => void;
   createCounterRequestTotalOperators?: () => void;
   createHistogramRequestDuration?: () => void;
-  calculeHistogramRequestDuration?: (start: number, path: string) => void;
-  sumOneRequest?: () => void;
+  calculeHistogramRequestDuration?: (start: number, action: string) => void;
+  sumOneRequest?: (action: string) => void;
 }

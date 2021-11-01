@@ -1,11 +1,12 @@
 import {Application} from '../application';
 import {Action} from '../../adapters/interfaces/transport/action';
-import {DeleteUser} from './user/deleteUser';
+import {UpdateUser} from './user/updateUser';
+import {UpdateUserParams} from '../../domain/user/services/updateUserInterface';
+import {UserType} from '../../domain/user/entities/user';
 import {MicroServiceError} from '../../adapters/core/microServiceError';
-import { UserType } from '../../domain/user/entities/user';
 
 export const register = (app: Application): Application => {
-  const deleteUser = new DeleteUser(app.getUserRepository());
+  const updateUser = new UpdateUser(app.getUserRepository());
   const action = {
     async run(data: unknown): Promise<unknown> {
       if (typeof data === 'string') {
@@ -17,9 +18,9 @@ export const register = (app: Application): Application => {
         }
       }
       const params = data as UserType
-      return await deleteUser.delete(params.id);
+      return await updateUser.update(params.id, data as UpdateUserParams);
     },
   } as Action;
-  app.addUseCase('deleteUser', action);
+  app.addUseCase('updateUser', action);
   return app;
 };

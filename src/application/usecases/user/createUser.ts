@@ -28,10 +28,10 @@ export class CreateUser implements CreateUserServiceType {
   }
 
   async existEmail(email: string): Promise<boolean>{
-    return this.repository.findOne({email}) ? true : false
+    return await this.repository.findOne({email}) ? true : false
   }
 
   async existUsername(username: string): Promise<boolean>{
-    return this.repository.findOne({username}) ? true : false
+    return await this.repository.findOne({username}) ? true : false
   }
 }

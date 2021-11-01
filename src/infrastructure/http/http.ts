@@ -44,34 +44,35 @@ function startServer(
 
   const path = '/service'
   server.post(path, async (req, res) => {
-    metric.sumOneRequest();
     const start = metric.startTime();
     let action: Action | null = null;
+    const actionName = req.body.action
+    metric.sumOneRequest(actionName);
     try {
-      action = actions.get(req.body.action);
+      action = actions.get(actionName);
     }
     catch (err) {
-      metric.calculeHistogramRequestDuration(start, path)
+      metric.calculeHistogramRequestDuration(start, actionName)
       res.status(500).json({message: err});
       return;
     }
     if (!action) {
-      metric.calculeHistogramRequestDuration(start, path)
+      metric.calculeHistogramRequestDuration(start, actionName)
       res.status(500).json({message: 'Not found action'});
       return;
     }
     if (!securityAccess.checkAccess(req.body.token)) {
-      metric.calculeHistogramRequestDuration(start, path)
+      metric.calculeHistogramRequestDuration(start, actionName)
       res.status(500).json({message: 'Token not allowed'});
       return;
     }
     let dataResponse;
     try {
       dataResponse = await action.run(req.body.data);
-      metric.calculeHistogramRequestDuration(start, path)
+      metric.calculeHistogramRequestDuration(start, actionName)
       res.json({data: JSON.stringify(dataResponse)});  
     } catch (err) {
-      metric.calculeHistogramRequestDuration(start, path)
+      metric.calculeHistogramRequestDuration(start, actionName)
       res.status(500).json({message: err});
     }
   });
