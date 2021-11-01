@@ -18,7 +18,7 @@ npm run docker
 
 ```
 
-### Test with agents
+### Agent tests
 
 ```bash
 # Run script to create 10000 users
@@ -38,7 +38,7 @@ npx ts-node ./src/console/agent.ts --find-users
 
 ```
 
-### Porject settings
+### Project settings
 
 ```bash
 # Run in develop mode
