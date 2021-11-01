@@ -44,10 +44,10 @@ function startServer(
 
   const path = '/service'
   server.post(path, async (req, res) => {
-    metric.sumOneRequest();
     const start = metric.startTime();
     let action: Action | null = null;
     const actionName = req.body.action
+    metric.sumOneRequest(actionName);
     try {
       action = actions.get(actionName);
     }
