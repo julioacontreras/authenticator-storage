@@ -5,11 +5,10 @@ export class MicroServiceError extends Error {
       this.type = type
       Object.setPrototypeOf(this, MicroServiceError.prototype);
   }
-
   getData() {
-      return {
-        message: this.message,
-        type: this.type
-      };
+    return {
+      message: this.message,
+      type: this.type
+    };
   }
 }

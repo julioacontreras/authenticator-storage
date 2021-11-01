@@ -9,21 +9,24 @@ import {printStartService} from '../display';
 import {Config} from './config';
 import {Action} from '../../adapters/interfaces/transport/action';
 import {MicroServiceError} from 'src/adapters/core/microServiceError';
+import { Application } from 'src/application/application';
 
 export const initializeGRPC = (
   config: Config,
   actions: Map<string, Action>,
-  securityAccess: SecurityAccess
+  securityAccess: SecurityAccess,
+  app: Application
 ) => {
-  connect(config, actions, securityAccess);
+  connect(config, actions, securityAccess, app);
 };
 
 const connect = (
   config: Config,
   actions: Map<string, Action>,
-  securityAccess: SecurityAccess
+  securityAccess: SecurityAccess,
+  app: Application
 ) => {
-  const server = startServer(config, actions, securityAccess);
+  const server = startServer(config, actions, securityAccess, app);
   server.bindAsync(
     `${config.host}:${config.port}`,
     grpc.ServerCredentials.createInsecure(),
@@ -41,7 +44,8 @@ const connect = (
 function startServer(
   config: Config,
   actions: Map<string, Action>,
-  securityAccess: SecurityAccess
+  securityAccess: SecurityAccess,
+  app: Application
 ) {
   const packageDef = protoLoader.loadSync(config.protoFile);
   const grpcObj = grpc.loadPackageDefinition(
@@ -49,9 +53,16 @@ function startServer(
   ) as unknown as ProtoGrpcType;
   const appPackage = grpcObj.appPackage;
   const server = new grpc.Server();
+  const metric = app.getMetric()
+  metric.createCounterRequestTotalOperators();
+  metric.createHistogramRequestDuration();
+
   server.addService(appPackage.AppService.service, {
-    sendToService: (req, res) => {
-      const action = actions.get(req.request.action);
+    sendToService: async (req, res) => {
+      const start = metric.startTime();
+      const actionName = req.request.action
+      const action = actions.get(actionName);
+      metric.sumOneRequest(actionName);
       if (!action) {
         res(null, {data: JSON.stringify({
           error: 'grpc',
@@ -61,6 +72,7 @@ function startServer(
       }
 
       if (!securityAccess.checkAccess(req.request.token)) {
+        metric.calculeHistogramRequestDuration(start, actionName)
         res(null, {data: JSON.stringify({
           error: 'grpc',
           message: 'Token not allowed'
@@ -69,9 +81,11 @@ function startServer(
       }
 
       try {
-        const dataResponse = action.run(req.request.data);
+        metric.calculeHistogramRequestDuration(start, actionName)
+        const dataResponse = await action.run(req.request.data);
         res(null, {data: JSON.stringify(dataResponse)});  
       } catch (error) {
+        metric.calculeHistogramRequestDuration(start, actionName)
         error = error as MicroServiceError 
         res(null, {data: JSON.stringify(error.getData())});  
       }

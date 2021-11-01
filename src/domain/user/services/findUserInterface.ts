@@ -1,5 +1,3 @@
-import {UserType} from '../entities/user';
-
-export interface UpdateUser {
-  find: (data: UserType) => Promise<void>;
+export interface FindUserType {
+  find: (id: string) => Promise<unknown>;
 }
