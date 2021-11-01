@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "agent": "npx ts-node ./src/console/agent.ts --create-user --repeat=1",
+    "agent": "npx ts-node ./src/console/agent.ts --create-user --repeat=10000",
     "start": "npm run clean && npm run build && npm start:app",
     "start:app": "node ./dist",
     "clean": "npx gts clean",

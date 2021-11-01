@@ -63,7 +63,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "http_request_duration_ms_bucket",
+          "expr": "http_request_duration_ms_sum",
           "interval": "",
           "legendFormat": "",
           "refId": "A"
