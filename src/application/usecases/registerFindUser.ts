@@ -1,11 +1,11 @@
 import {Application} from '../application';
 import {Action} from '../../adapters/interfaces/transport/action';
-import {DeleteUser} from './user/deleteUser';
+import {FindUser} from './user/findUser';
+import {UserType} from '../../domain/user/entities/user';
 import {MicroServiceError} from '../../adapters/core/microServiceError';
-import { UserType } from '../../domain/user/entities/user';
 
 export const register = (app: Application): Application => {
-  const deleteUser = new DeleteUser(app.getUserRepository());
+  const findUser = new FindUser(app.getUserRepository());
   const action = {
     async run(data: unknown): Promise<unknown> {
       if (typeof data === 'string') {
@@ -17,9 +17,9 @@ export const register = (app: Application): Application => {
         }
       }
       const params = data as UserType
-      return await deleteUser.delete(params.id);
+      return await findUser.find(params.id);
     },
   } as Action;
-  app.addUseCase('deleteUser', action);
+  app.addUseCase('findUser', action);
   return app;
 };
