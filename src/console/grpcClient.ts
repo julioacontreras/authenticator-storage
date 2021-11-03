@@ -1,6 +1,6 @@
 import * as grpc from '@grpc/grpc-js';
 import * as protoLoader from '@grpc/proto-loader';
-import {ProtoGrpcType} from '../../../grpc/src/data';
+import {ProtoGrpcType} from 'action-grpc/src/data';
 
 import dotenv from 'dotenv';
 dotenv.config();
