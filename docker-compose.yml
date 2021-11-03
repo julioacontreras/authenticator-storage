@@ -1,9 +1,10 @@
 version: "3"
 services:
   authstorage:
-    container_name: auth-service
-    build: .
-    image: authstorageimage
+    container_name: auth-storage
+    build:
+      dockerfile: Dockerfile.dev
+    image: akuma/auth-storage
     env_file:
       - ./.env.docker 
     volumes:

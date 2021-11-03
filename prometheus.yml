@@ -5,4 +5,4 @@ scrape_configs:
 - job_name: auth-storage
   honor_labels: true
   static_configs:
-      - targets: ['auth-service:5002']
+      - targets: ['auth-storage:5002']
