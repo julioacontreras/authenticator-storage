@@ -1,10 +1,5 @@
-import {GRPCServer} from '../../../infrastructure/grpc/server';
-import {Application} from '../../../application/application';
-
-import dotenv from 'dotenv';
-dotenv.config();
-
-const path = require('path')
+import {GRPCServer} from 'akuma-mf-grpc/lib/server';
+import {Application} from '../../application/application';
 
 const config = {
   host: process.env.SERVER_GRPC_HOST,

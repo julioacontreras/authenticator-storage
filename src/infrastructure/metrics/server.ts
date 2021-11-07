@@ -1,6 +1,6 @@
 import express from 'express';
-import {printStartService} from '../display';
-import {Metric} from '../../adapters/interfaces/metrics/metric';
+import {printStartService} from 'akuma-microservice-framework/lib/infrastructure/display';
+import {Metric} from 'akuma-microservice-framework/lib/adapters/action-protocol/metrics/metric';
 
 export interface Config {
   port: string;

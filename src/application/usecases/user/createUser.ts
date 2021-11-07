@@ -1,11 +1,11 @@
-import {RepositoryAdapter} from '../../../adapters/interfaces/db/repository';
+import {RepositoryAdapter} from 'akuma-microservice-framework/lib/adapters/db/repository';
 import {
   CreateUserServiceType,
   CreateUserParams,
 } from '../../../domain/user/services/createUserInterface';
 import {ValidateParamsCreateUser} from './validations/validateParamsCreateUser';
-import {Validator} from '../../../adapters/interfaces/validator';
-import {MicroServiceError} from '../../../adapters/core/microServiceError';
+import {Validator} from '../../../adapters/validate/Validator';
+import {MicroServiceError} from 'akuma-microservice-framework/lib/adapters/action-protocol/exception/microServiceError';
 
 export class CreateUser implements CreateUserServiceType {
   private repository: RepositoryAdapter | null = null;

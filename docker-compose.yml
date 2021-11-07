@@ -2,14 +2,12 @@ version: "3"
 services:
   authstorage:
     container_name: auth-storage
-    build:
-      dockerfile: Dockerfile.dev
-    image: akuma/auth-storage
+    image: julioacontreras/auth-storage:beta4
+    build: .
     env_file:
       - ./.env.docker 
     volumes:
       - .:/var/www/html/app
-      - ../grpc:/var/www/html/grpc
     ports:
       - 5000:5000
       - 5001:5001

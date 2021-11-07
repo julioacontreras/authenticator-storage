@@ -1,5 +1,5 @@
-import { SecurityAccess } from 'src/adapters/interfaces/securityAccess';
-import { Action } from 'src/adapters/interfaces/transport/action';
+import { SecurityAccess } from 'akuma-microservice-framework/lib/adapters/action-protocol/security-access';
+import { Action } from 'akuma-microservice-framework/lib/adapters/action-protocol/transport/action';
 
 export interface MockServerAdapter {
   create: (

@@ -1,9 +1,9 @@
 import {Application} from '../application';
-import {Action} from '../../adapters/interfaces/transport/action';
+import {Action} from 'akuma-microservice-framework/lib/adapters/action-protocol/transport/action';
 import {UpdateUser} from './user/updateUser';
 import {UpdateUserParams} from '../../domain/user/services/updateUserInterface';
 import {UserType} from '../../domain/user/entities/user';
-import {MicroServiceError} from '../../adapters/core/microServiceError';
+import {MicroServiceError} from 'akuma-microservice-framework/lib/adapters/action-protocol/exception/microServiceError';
 
 export const register = (app: Application): Application => {
   const updateUser = new UpdateUser(app.getUserRepository());

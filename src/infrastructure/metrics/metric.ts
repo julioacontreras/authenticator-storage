@@ -1,4 +1,4 @@
-import {Metric} from '../../adapters/interfaces/metrics/metric';
+import {Metric} from 'akuma-microservice-framework/lib/adapters/action-protocol/metrics/metric';
 
 const client = require('prom-client');
 

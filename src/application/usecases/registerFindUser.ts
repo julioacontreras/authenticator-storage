@@ -1,8 +1,8 @@
 import {Application} from '../application';
-import {Action} from '../../adapters/interfaces/transport/action';
+import {Action} from 'akuma-microservice-framework/lib/adapters/action-protocol/transport/action';
 import {FindUser} from './user/findUser';
 import {UserType} from '../../domain/user/entities/user';
-import {MicroServiceError} from '../../adapters/core/microServiceError';
+import {MicroServiceError} from 'akuma-microservice-framework/lib/adapters/action-protocol/exception/microServiceError';
 
 export const register = (app: Application): Application => {
   const findUser = new FindUser(app.getUserRepository());

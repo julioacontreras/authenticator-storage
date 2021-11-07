@@ -1,13 +1,15 @@
 
-import {Application} from './application';
+import dotenv from 'dotenv';
+dotenv.config();
 
-import {register as registerMetric} from '../adapters/registers/metrics';
-import {register as registerSecurityAccess} from '../adapters/registers/securityAccess';
-import {register as registerValidate} from '../adapters/registers/validate';
-// import {register as registerServer} from '../adapters/registers/serverHTTP';
-import {register as registerServer} from '../adapters/registers/serverGRPC';
-import {register as registerDatabase} from '../adapters/registers/dbMongo';
-import {register as registerUserRepository} from '../adapters/registers/userRepository';
+import {Application} from './application';
+import {register as registerMetric} from '../adapters/metrics';
+import {register as registerSecurityAccess} from '../adapters/securityAccess';
+import {register as registerValidate} from '../adapters/validate';
+// import {register as registerServer} from '../adapters/serverHTTP';
+import {register as registerServer} from '../adapters/serverGRPC';
+import {register as registerDatabase} from '../adapters/dbMongo';
+import {register as registerUserRepository} from '../adapters/userRepository';
 import {register as registerCreateUser} from './usecases/registerCreateUser';
 import {register as registerDeleteUser} from './usecases/registerDeleteUser';
 import {register as registerFindUser} from './usecases/registerFindUser';

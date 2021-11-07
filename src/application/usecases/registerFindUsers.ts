@@ -1,5 +1,5 @@
 import {Application} from '../application';
-import {Action} from '../../adapters/interfaces/transport/action';
+import {Action} from 'akuma-microservice-framework/lib/adapters/action-protocol/transport/action';
 import {FindUsers} from './user/findUsers';
 
 export const register = (app: Application): Application => {
