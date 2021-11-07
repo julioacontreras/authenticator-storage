@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-import {ConnectorAdapter} from '../../adapters/interfaces/db/connector';
-import {printStartService} from '../display';
+import {ConnectorAdapter} from 'akuma-microservice-framework/lib/adapters/db/connector';
+import {printStartService} from 'akuma-microservice-framework/lib/infrastructure/display';
 
 interface ConfigMongo {
   url: string;

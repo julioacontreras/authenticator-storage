@@ -1,6 +1,6 @@
-import {UserModel} from '../../../domain/user/entities/user';
-import {User} from '../../../domain/user/valueObjects/user';
-import {Application} from 'src/application/application';
+import {UserModel} from '../../domain/user/entities/user';
+import {User} from '../../domain/user/valueObjects/user';
+import {Application} from '../../application/application';
 
 export const register = (app: Application): Application  =>{
   const UserRepository = new app.Repository(User.single, UserModel, app.getDatabase())

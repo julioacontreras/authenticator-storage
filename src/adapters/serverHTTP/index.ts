@@ -1,5 +1,5 @@
-import {HTTPServer} from '../../../infrastructure/http/server';
-import {Application} from '../../../application/application';
+import {HTTPServer} from '../../infrastructure/http/server';
+import {Application} from '../../application/application';
 
 const config = {
   port: process.env.SERVER_HTTP_PORT,

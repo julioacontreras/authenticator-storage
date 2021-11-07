@@ -1,9 +1,9 @@
-import {ProtocolServerAdapter} from '../adapters/interfaces/transport/server';
-import {Action} from '../adapters/interfaces/transport/action';
-import {SecurityAccess} from '../adapters/interfaces/securityAccess';
-import {RepositoryAdapter} from '../adapters/interfaces/db/repository';
-import {Validator} from 'src/adapters/interfaces/validator';
-import {Metric} from 'src/adapters/interfaces/metrics/metric';
+import {ProtocolServerAdapter} from 'akuma-microservice-framework/lib/adapters/action-protocol/transport/server';
+import {Action} from 'akuma-microservice-framework/lib/adapters/action-protocol/transport/action';
+import {SecurityAccess} from 'akuma-microservice-framework/lib/adapters/action-protocol/security-access';
+import {RepositoryAdapter} from 'akuma-microservice-framework/lib/adapters/db/repository';
+import {Validator} from '../adapters/validate/Validator';
+import {Metric} from 'akuma-microservice-framework/lib/adapters/action-protocol/metrics/metric';
 
 export class Application {
   private useCaseList: Map<string, Action> = new Map();

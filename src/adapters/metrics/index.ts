@@ -1,8 +1,6 @@
-import {initializeMetrics} from '../../../infrastructure/metrics/server';
-import {MetricService} from '../../../infrastructure/metrics/metric';
-import {Application} from '../../../application/application';
-import dotenv from 'dotenv';
-dotenv.config();
+import {initializeMetrics} from '../../infrastructure/metrics/server';
+import {MetricService} from '../../infrastructure/metrics/metric';
+import {Application} from '../../application/application';
 
 const config = {
   port: process.env.SERVER_METRICS_PORT,

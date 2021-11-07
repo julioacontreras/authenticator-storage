@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import {Action} from '../../adapters/interfaces/transport/action';
-import {SecurityAccess} from '../../adapters/interfaces/securityAccess';
-import {ProtocolServerAdapter} from '../../adapters/interfaces/transport/server';
+import {Action} from 'akuma-microservice-framework/lib/adapters/action-protocol/transport/action';
+import {SecurityAccess} from 'akuma-microservice-framework/lib/adapters/action-protocol/security-access';
+import {ProtocolServerAdapter} from 'akuma-microservice-framework/lib/adapters/action-protocol/transport/server';
 import {initializeHTTP} from './http';
 import {Config} from './config';
 import { Application } from 'src/application/application';

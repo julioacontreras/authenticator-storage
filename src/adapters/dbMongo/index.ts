@@ -1,8 +1,6 @@
-import {MongoConnector} from '../../../infrastructure/mongodb/connector';
-import {Application} from '../../../application/application';
-import {MongoRepository} from '../../../infrastructure/mongodb/repository';
-
-require('dotenv').config();
+import {MongoConnector} from '../../infrastructure/mongodb/connector';
+import {Application} from '../../application/application';
+import {MongoRepository} from '../../infrastructure/mongodb/repository';
 
 export const register = async (app: Application): Promise<Application> => {
   const db = await MongoConnector.connect({

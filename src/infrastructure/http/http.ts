@@ -1,8 +1,8 @@
 import express from 'express';
-import {printStartService} from '../display';
+import {printStartService} from 'akuma-microservice-framework/lib/infrastructure/display';
 import {Config} from './config';
-import {Action} from '../../adapters/interfaces/transport/action';
-import {SecurityAccess} from '../../adapters/interfaces/securityAccess';
+import {Action} from 'akuma-microservice-framework/lib/adapters/action-protocol/transport/action';
+import {SecurityAccess} from 'akuma-microservice-framework/lib/adapters/action-protocol/security-access';
 import {Application} from 'src/application/application';
 
 export const initializeHTTP = (

@@ -1,4 +1,4 @@
-import {RepositoryAdapter} from '../../../adapters/interfaces/db/repository';
+import {RepositoryAdapter} from 'akuma-microservice-framework/lib/adapters/db/repository';
 
 import {
   UpdateUserType,

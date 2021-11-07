@@ -1,6 +1,6 @@
 import {Mongoose} from 'mongoose';
-import {MicroServiceError} from '../../adapters/core/microServiceError';
-import {RepositoryAdapter} from '../../adapters/interfaces/db/repository';
+import {MicroServiceError} from 'akuma-microservice-framework/lib/adapters/action-protocol/exception/microServiceError';
+import {RepositoryAdapter} from 'akuma-microservice-framework/lib/adapters/db/repository';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 let MongoModel: any | null = null;

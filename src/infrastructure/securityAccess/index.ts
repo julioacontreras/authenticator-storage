@@ -1,4 +1,4 @@
-import {SecurityAccess} from '../../adapters/interfaces/securityAccess';
+import {SecurityAccess} from 'akuma-microservice-framework/lib/adapters/action-protocol/security-access';
 import dotenv from 'dotenv';
 dotenv.config();
 
