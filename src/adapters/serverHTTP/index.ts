@@ -1,4 +1,4 @@
-import {HTTPServer} from '../../infrastructure/http/server';
+import {HTTPServer} from 'akuma-http/lib/server';
 import {Application} from '../../application/application';
 
 const config = {

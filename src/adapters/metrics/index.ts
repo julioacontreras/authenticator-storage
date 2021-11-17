@@ -1,5 +1,5 @@
-import {initializeMetrics} from '../../infrastructure/metrics/server';
-import {MetricService} from '../../infrastructure/metrics/metric';
+import {initializeMetrics} from 'akuma-metrics/lib/server';
+import {MetricService} from 'akuma-metrics/lib/metric';
 import {Application} from '../../application/application';
 
 const config = {
