@@ -1,4 +1,4 @@
-import {securityAccess} from '../../infrastructure/securityAccess';
+import {securityAccess} from 'akuma-security-access/lib';
 import {Application} from '../../application/application';
 
 export const register = (app: Application): Application => {

@@ -2,7 +2,7 @@ version: "3"
 services:
   authstorage:
     container_name: auth-storage
-    image: julioacontreras/auth-storage:beta4
+    image: julioacontreras/auth-storage:beta6
     build: .
     env_file:
       - ./.env.docker 

@@ -1,4 +1,4 @@
-import {Validator} from '../../infrastructure/validation';
+import {Validator} from 'akuma-validation/lib';
 import {Application} from '../../application/application';
 
 export const register = (app: Application): Application => {  
